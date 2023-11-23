@@ -1,53 +1,118 @@
 const inquirer = require("inquirer");
-const Svg = required('./lib/svg');
 const fs = require ("fs");
 const {Circle, Square, Triangle} = require("./lib/shapes");
-const {userInput, getInput} =require("./lib/svg");
-const { error } = required("console");
 
-// prompts with questions
+class Svg {
+    constructor(){
+      this.textElement = ''
+      this.shapeElement = ''
+    }
+    render(){
+      return <svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg"></svg>
+    }
+    setTextElement(text,color){
+      this.textElement = ' <text x="150" y="125" font-size="60" text-anchor="middle" fill="white">SVG</text>'
+    }
+    setShapeElement(shape){
+      this.shapeElement = shape.render()
+    }
+  }
+// array of questions to prompt
 const questions = [
     {
         type: "input",
         name:"text",
-        message:"Enter up to three characters.",
-        type: "input",
+        message:"TEXT: Enter up to three characters.",
         validate:(input) => input.length <= 3,
     },
-        type:"input",
+    {
+        type: "input",
         name: "textColor",
-        message:"What color is your log? (Bykeyword or hexadecimal number)",
+        message: "TEXT COLOR: What color is your logo? (By keyword or hexadecimal number)",
     },
     {
-        type: "list",
+        type: "input",
         name: 'logoShape',
         message: "What shape is yout logo?",
-        choices:["circle", "triangle, "square"],
+        choices: ["Circle, Square, Triangle"],
     },
+    {
         type: "input",
         name: "shapeColor",
-        message: "What color is your shape? (By keyword or hexadecimal number)",    
+        message: "SHAPE COLOR: What color is your shape? (By keyword or hexadecimal number)",    
     },
   ];
-  inquirer
-    .createPromptModule(questions)
-    .then((responses) => {
-      let shape;
-      if (response.shape === "circle"){ 
-      } else if (response.shape === "triangle"){
-        shape = new Triangle();
-      } else {
-        shape = new Square();
-      }
-      shape.setLogoColor(response.shapeColor);  
-      const svg = new Svg();
-      svg.setShape(shape);
-      svg.setText(response.text, response.textColor);
-      fs.writeFile(`examples/logo-${response.text}.svg`, svg.render(), (err) => {
-        if (err) console.log(err);
-          console.log("Your logo was created!!");
+
+  //function to write data
+  function writeToFile(fileName, data) {
+          console.log("Writing [" + data + "] to file [" + fileName + "]")
+      filesystem.writeFile(fileName, data, function (err) {
+          if (err) {
+                return console.log(err);
+          }
+          console.log("Congratulations, you have Generated a logo.svg!");
       });
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
+  }
+
+  async function init() {
+      console.log("Starting init");
+          var svgString = "";
+          var svg_file = "logo.svg";
+
+    //prompt user for answers
+    const answer = await inquirer.createPromptModule(questions);
+
+        var user_text = "";
+        if (answers.text.length > 0 && answers.text.length < 4) {
+          // 1-3 chars, valid entry
+          user_text = answers.text;
+        } else {
+          // 0 or 4+ chars, invalid entry
+          console.log("Invalid user text field detected! Please enter 1-3 Characters, no more and no less");
+        return;
+        }
+        console.log("User text: [" + user_text + "]");
+        //user font color
+        user_font_color = answers["textColor"];
+        console.log("User font color: [" + user_font_color + "]");
+        //user shape color
+        user_shape_color = answers.shape;
+        console.log("User shape color: [" + user_shape_color + "]");
+        //user shape type
+        user_shape_type = answers["logoShape"];
+        console.log("User entered shape = [" + user_shape_type + "]");
+        
+        //user shape
+        let user_shape;
+        if (user_shape_type === "Square" || user_shape_type === "square") {
+          user_shape = new Square();
+          console.log("User selected Square shape");
+        }
+        else if (user_shape_type === "Circle" || user_shape_type === "circle") {
+          user_shape = new Circle();
+          console.log("User selected Circle shape");
+        }
+        else if (user_shape_type === "Triangle" || user_shape_type === "triangle") {
+          user_shape = new Triangle();
+          console.log("User selected Triangle shape");
+        }
+        else {
+          console.log("Invalid shape!");
+        }
+        user_shape.setColor(user_shape_color);{
+        }
+        user_shape.setColor(user_shape_color);
+
+        //create new svg instance and add dhape and text elements
+        var svg = new Svg();
+        svg.setTextElement(user_text, user_font_color);
+        svg.setShapeElement(user_shape);
+        svgString = svg.render();
+
+        console.log("Displaying shape:\n\n" + svgString);
+
+        console.log("Shape generation complete!");
+        console.log("Writing shape to file...");
+        writeToFile(svg_file, svgString); 
+        }
+      init()
