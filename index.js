@@ -87,4 +87,4 @@ inquirer.prompt([
               console.log('Generated logo.svg!');
           }
       })
-    }
+    };
