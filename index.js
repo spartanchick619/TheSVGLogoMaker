@@ -1,7 +1,7 @@
 const inquirer = require("inquirer");
 const fs= require ("fs");
 const {Circle, Square, Triangle} = require("./lib/shapes");
-const {userInput, getInput} =require(./lib/input);
+const {userInput, getInput} =require("./lib/input");
 
 // prompts with questions
 inquirer.prompt([
