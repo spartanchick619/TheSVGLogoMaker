@@ -55,36 +55,36 @@ inquirer.prompt([
             return input.trim(). toLowerCase();
         },
         validate: varlidateColorName,
-      },
-  ]).then(answer => {
-      console.log(answer);
+        },
+    ]).then(answer => {
+        console.log(answer);
 
-      svgMaker(answer);
-  })
+        svgMaker(answer);
+    })
 //function processes data for creating svg file
-  function svgMaker( { text, textColor, logoShape, logoColor } ) {
-      logoShape.setLogoColor(logoColor);
-      const svgContent = `
-          <svg version="1.1"
-              width="300" height="200"
-              xmlns="http://www.w3.org/2000/svg">
-              <rect width="100%" height="100%" fill="transparent" />
+    function svgMaker( { text, textColor, logoShape, logoColor } ) {
+        logoShape.setLogoColor(logoColor);
+        const svgContent = `
+            <svg version="1.1"
+                width="300" height="200"
+                xmlns="http://www.w3.org/2000/svg">
+                <rect width="100%" height="100%" fill="transparent" />
 
-              ${logoShape.renderLogoColor()}
+                ${logoShape.renderLogoColor()}
 
-              ${logoShape.rendertext(text, logoColor)}
-          </svg>`;
+                ${logoShape.rendertext(text, logoColor)}
+            </svg>`;
 
-  writeToFile('logo.svg', svgContent);
-}
-//function generates files based on received data
-  function writeToFile(fileName, data) {
-      fs.writeFile(fileName, data, (error) => {
-          if (error) {
-              console.log(error);
-              return;
-          } else {
-              console.log('Generated logo.svg!');
-          }
-      })
-    };
+    writeToFile('logo.svg', svgContent);
+  }
+  //function generates files based on received data
+    function writeToFile(fileName, data) {
+        fs.writeFile(fileName, data, (error) => {
+            if (error) {
+                console.log(error);
+                return;
+            } else {
+                console.log('Generated logo.svg!');
+            }
+        })
+      };
