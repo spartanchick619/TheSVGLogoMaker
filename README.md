@@ -4,13 +4,17 @@
 This applications makes simple logos. 
 
 ## Description
-This is a command-line application that takes in user input to generate a logo and save it as an Scalable Vector Graphics (SVG). The application prompts the user to select a color and shape, provide text for the logo, amd save the generated SVG to a `.svg` file. This application solves the problem of spending time and money for a graphic designer to design a logo. 
+This is a command-line application that takes in user input to generate a logo and save it as an Scalable Vector Graphics (SVG). The application prompts the user to select a color and shape, provide text for the logo, amd save the generated SVG to a `.svg` file. This application solves the problem of spending time and money for a graphic designer to design a logo. This application was built with Node.js, Jest, and Inquirer. This project was very challenging and will be improved upon for future development to be fully functional.
 
 ## Installation
-invoking node index.js
+Invoking node index.js
 
 ## Usage
+Open integrated terminal on index.js. Then enter "noe index.js" in the command line. The user will be presented with 4 questions and be prompted to answer them. Once the questiona are answered, a SVG file named "logo.svg" will be created. 
+
 ## Tutorial Video
+
+https://youtu.be/NminEWw8LkI
 
 ## Contributors
 Rosa Valdez
